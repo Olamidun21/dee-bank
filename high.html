@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<link href="Bootstrap4.0_beta-dist/css/bootstrap.css"/>
+<script src="Bootstrap4.0_beta-dist/js/popper.min.js"></script>
+<script src="Bootstrap4.0_beta-dist/js/jquery-3.2.1.min.js"></script>
+<script src="Bootstrap4.0_beta-dist/js/bootstrap.js"></script>
+<script>
+function searchData(p)
+{
+	d=p;
+	$.post("high.php",{high:d}, function(response){
+		//alert(response);
+		var bar =JSON.parse(response);
+		var i;
+		var hi ="";
+		for(i=0; i< bar.length; i++)
+		{
+			hi += "<tr><td>"+bar[i].customer_id+
+			"</td><td>"+ bar[i].firstname+
+			"</td><td>"+ bar[i].lastname+
+			"</td><td>"+ bar[i].email+
+			"</td></tr>";	
+		}
+		$('tbody').html(hi);
+	});
+}
+</script>
+</head>
+
+<body>
+<input type="text" class="form-control" id="search" onKeyUp="searchData(this.value)" >
+<table class="table table-striped" border="2">
+<thead>
+<tr>
+<th>Customer id</th><th>Firstname</th><th>Lastname</th><th>Email</th>
+</tr>
+<tbody>
+</thead>
+</tbody>
+</table>
+</body>
+</html>
